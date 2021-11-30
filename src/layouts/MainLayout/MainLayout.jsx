@@ -1,9 +1,9 @@
 import React from 'react';
 
-const MainLayuot = (props) => {
+const MainLayout = (props) => {
   return (
     <div></div>
   );
 };
 
-export default MainLayuot;
+export default MainLayout;
