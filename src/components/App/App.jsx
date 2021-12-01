@@ -1,20 +1,20 @@
 import React from 'react';
 import constructPath from '@src/routes';
 
-const appRoutes = [
-  {
-    path: constructPath.root(),
-    element: <Dashboard />,
-  },
-  {
-    path: constructPath.login(),
-    element: <Dashboard />,
-  },
-  {
-    path: "*",
-    element: <NotFound />,
-  }
-]
+// const appRoutes = [
+//   {
+//     path: constructPath.root(),
+//     element: <Dashboard />,
+//   },
+//   {
+//     path: constructPath.login(),
+//     element: <Dashboard />,
+//   },
+//   {
+//     path: "*",
+//     element: <NotFound />,
+//   }
+// ]
 //   function App() {
 //   let element = useRoutes([
 //     {
@@ -36,7 +36,7 @@ const appRoutes = [
 
 const App = () => {
   return (
-    <div>1132</div>
+    <div>113456456462</div>
   );
 };
 
