@@ -12,30 +12,30 @@ import 'regenerator-runtime/runtime.js';
 
 import '../assets/application.scss';
 
-// const init = async () => {
-//   await i18n
-//     .use(initReactI18next)
-//     .init({
-//       resources: {
-//         ru: resources.ru,
-//       },
-//       fallbackLng: 'ru',
-//     });
-//
-//   return (
-//     <React.StrictMode>
-//       <BrowserRouter>
-//         <App />
-//       </BrowserRouter>
-//     </React.StrictMode>
-//   );
-// }
-//
-//
-// // const vdom = init();
-//
-ReactDOM.render(<React.StrictMode>
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
-</React.StrictMode>, document.getElementById('chat'));
+const init = async () => {
+  await i18n
+    .use(initReactI18next)
+    .init({
+      resources: {
+        ru: resources.ru,
+      },
+      fallbackLng: 'ru',
+    });
+}
+
+const render = async () => {
+  await init();
+
+  const vdom = (
+    <React.StrictMode>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </React.StrictMode>
+  )
+
+  ReactDOM.render(vdom, document.getElementById('chat'));
+}
+
+render();
+
