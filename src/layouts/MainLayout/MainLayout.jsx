@@ -1,8 +1,12 @@
 import React from 'react';
+import Navigation from '../../components/Navigation/Navigation';
 
-const MainLayout = (props) => {
+const MainLayout = ({ children }) => {
   return (
-    <div></div>
+    <div className="d-flex flex-column h-100">
+      <Navigation />
+      {children}
+    </div>
   );
 };
 
