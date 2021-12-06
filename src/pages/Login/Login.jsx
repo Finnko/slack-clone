@@ -1,14 +1,38 @@
 import React from 'react';
+import * as yup from 'yup';
 import MainLayout from '@src/layouts/MainLayout/MainLayout';
 import { Button, FloatingLabel, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useTranslation } from "react-i18next";
+import { useFormik } from 'formik';
 import constructPath from '@src/routes';
 
 import loginPic from '@assets/img/login.jpg';
 
+const schema = yup.object({
+  username: yup.string()
+    .required('error.required'),
+  password: yup.string()
+    .required('error.required'),
+});
+
 const Login = () => {
   const { t } = useTranslation();
+
+  const { values, errors, touched, handleChange, handleSubmit } = useFormik({
+    initialValues: {
+      username: '',
+      password: '',
+    },
+    validationSchema: schema,
+  });
+
+  const onSubmit = (valuesData) => {
+    console.log({valuesData});
+  }
+
+  console.log({values})
+  console.log({errors})
 
   return (
     <MainLayout>
@@ -25,7 +49,7 @@ const Login = () => {
                   />
                 </div>
 
-                <Form className="col-12 col-md-6 mt-3 mt-mb-0">
+                <Form className="col-12 col-md-6 mt-3 mt-mb-0" onSubmit={handleSubmit}>
                   <h1 className="text-center mb-4">{t('ui.form.loginTitle')}</h1>
 
                   <FloatingLabel
@@ -37,10 +61,14 @@ const Login = () => {
                       type="text"
                       name="username"
                       autoComplete="off"
-                      value=""
                       placeholder={t('ui.form.fieldUserName')}
-                      required
+                      value={values.username}
+                      onChange={handleChange}
+                      isInvalid={errors?.username && touched?.username}
                     />
+                    <Form.Control.Feedback type="invalid" tooltip>
+                      {t(`${errors.username}`)}
+                    </Form.Control.Feedback>
                   </FloatingLabel>
 
                   <FloatingLabel
@@ -53,9 +81,13 @@ const Login = () => {
                       name="password"
                       // autoComplete="current-password"
                       placeholder={t('ui.form.fieldPassword')}
-                      value=""
-                      required
+                      value={values.password}
+                      onChange={handleChange}
+                      isInvalid={errors?.password && touched?.password}
                     />
+                    <Form.Control.Feedback type="invalid" tooltip>
+                      {t(`${errors.password}`)}
+                    </Form.Control.Feedback>
                   </FloatingLabel>
 
                   <Button variant="outline-primary" type="submit" className="w-100 mb-3">

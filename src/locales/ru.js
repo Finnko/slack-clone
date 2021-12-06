@@ -1,10 +1,7 @@
 export default {
   translation: {
-    errors: {
-      fieldInvalid: 'Ссылка должна быть валидным URL',
-      doubles: 'RSS уже существует',
-      network: 'Ошибка сети',
-      rssInvalid: 'Ресурс не содержит валидный RSS',
+    error: {
+      required: 'Поле обязательно для заполнения',
       unknown: 'Произошла неизвестная ошибка, перезагрузите страницу и попробуйте снова',
     },
     ui: {
