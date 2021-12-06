@@ -10,7 +10,8 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'],
     alias: {
-      '@src': path.resolve(__dirname, './src')
+      '@src': path.resolve(__dirname, './src'),
+      '@assets': path.resolve(__dirname, './assets')
     }
   },
   output: {
@@ -41,6 +42,14 @@ module.exports = {
           { loader: 'css-loader' },
           { loader: 'postcss-loader' },
           { loader: 'sass-loader' },
+        ],
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+          },
         ],
       },
     ],
