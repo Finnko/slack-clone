@@ -4,7 +4,7 @@ const host = '';
 const prefix = 'api/v1';
 
 export default {
-  root: () => [host].join('/'),
+  root: () => [host, ''].join('/'),
   login: () => [host, 'login'].join('/'),
   signup: () => [host, 'signup'].join('/'),
   channelsPath: () => [host, prefix, 'channels'].join('/'),

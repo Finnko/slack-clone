@@ -3,7 +3,7 @@ import * as yup from 'yup';
 import MainLayout from '@src/layouts/MainLayout/MainLayout';
 import { Button, FloatingLabel, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 import constructPath from '@src/routes';
 
@@ -19,7 +19,9 @@ const schema = yup.object({
 const Login = () => {
   const { t } = useTranslation();
 
-  const { values, errors, touched, handleChange, handleSubmit } = useFormik({
+  const {
+    values, errors, touched, handleChange, handleSubmit,
+  } = useFormik({
     initialValues: {
       username: '',
       password: '',
@@ -28,11 +30,11 @@ const Login = () => {
   });
 
   const onSubmit = (valuesData) => {
-    console.log({valuesData});
-  }
+    console.log({ valuesData });
+  };
 
-  console.log({values})
-  console.log({errors})
+  console.log({ values });
+  console.log({ errors });
 
   return (
     <MainLayout>
@@ -99,7 +101,7 @@ const Login = () => {
               <div className="card-footer p-4">
                 <div className="text-center">
                   <span>{t('ui.text.noAccount')}</span>
-
+                  {' '}
                   <Link to={constructPath.signup()}>{t('ui.link.register')}</Link>
                 </div>
               </div>

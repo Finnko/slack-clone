@@ -2,6 +2,7 @@ export default {
   translation: {
     error: {
       required: 'Поле обязательно для заполнения',
+      invalidCredentials: 'Неверные имя пользователя или пароль',
       unknown: 'Произошла неизвестная ошибка, перезагрузите страницу и попробуйте снова',
     },
     ui: {
@@ -11,14 +12,14 @@ export default {
         fieldPassword: 'Пароль',
       },
       button: {
-        login: 'Войти'
+        login: 'Войти',
       },
       link: {
-        register: 'Регистрация'
+        register: 'Регистрация',
       },
       text: {
         noAccount: 'Нет аккаунта?',
-      }
-    }
+      },
+    },
   },
 };

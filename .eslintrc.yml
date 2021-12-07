@@ -24,6 +24,7 @@ settings:
 
 rules:
   import/extensions: 0
+
   react/prop-types: 0
   no-console: 0
   functional/no-conditional-statement: 0
