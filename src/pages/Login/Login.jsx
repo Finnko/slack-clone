@@ -5,7 +5,7 @@ import { Button, FloatingLabel, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
-import constructPath from '@src/routes';
+import routes from '@src/routes';
 
 import loginPic from '@assets/img/login.jpg';
 
@@ -102,7 +102,7 @@ const Login = () => {
                 <div className="text-center">
                   <span>{t('ui.text.noAccount')}</span>
                   {' '}
-                  <Link to={constructPath.signup()}>{t('ui.link.register')}</Link>
+                  <Link to={routes.signup()}>{t('ui.link.register')}</Link>
                 </div>
               </div>
             </div>

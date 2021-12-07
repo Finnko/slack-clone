@@ -1,17 +1,21 @@
 import React from 'react';
 import { useRoutes } from 'react-router';
-import constructPath from '@src/routes';
+import routes from '@src/routes';
 import Login from '../../pages/Login/Login';
 import Main from '../../pages/Main/Main';
-import { useAuth } from '../../contexts/AuthContext';
+import PrivateRoute from '../PrivateRoute';
 
 const appRoutes = [
   {
-    path: constructPath.root(),
-    element: <Main />,
+    path: routes.root(),
+    element: (
+      <PrivateRoute>
+        <Main />
+      </PrivateRoute>
+    ),
   },
   {
-    path: constructPath.login(),
+    path: routes.login(),
     element: <Login />,
   },
   // {
@@ -20,11 +24,6 @@ const appRoutes = [
   // }
 ];
 
-const App = () => {
-  const { authState } = useAuth();
-  console.log({ authState });
-
-  return useRoutes(appRoutes);
-};
+const App = () => useRoutes(appRoutes);
 
 export default App;

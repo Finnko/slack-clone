@@ -9,7 +9,7 @@ const AuthProvider = ({ children }) => {
   const isAuth = token !== '';
 
   return (
-    <AuthContext.Provider value={{ authState: isAuth, setToken }}>
+    <AuthContext.Provider value={{ isAuth, setToken }}>
       {children}
     </AuthContext.Provider>
   );
