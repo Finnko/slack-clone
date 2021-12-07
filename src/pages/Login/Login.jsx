@@ -8,6 +8,9 @@ import { useFormik } from 'formik';
 import routes from '@src/routes';
 
 import loginPic from '@assets/img/login.jpg';
+import { login } from '../../api/api';
+import { useAuth } from '../../contexts/AuthContext';
+import { useNavigate } from 'react-router';
 
 const schema = yup.object({
   username: yup.string()
@@ -18,23 +21,33 @@ const schema = yup.object({
 
 const Login = () => {
   const { t } = useTranslation();
+  const { setToken } = useAuth();
+  const navigate = useNavigate();
 
   const {
-    values, errors, touched, handleChange, handleSubmit,
+    values,
+    errors,
+    touched,
+    isSubmitting,
+    setFieldError,
+    handleChange,
+    handleSubmit,
   } = useFormik({
     initialValues: {
       username: '',
       password: '',
     },
     validationSchema: schema,
+    onSubmit: async ({ username, password }) => {
+      try {
+        const { token, user } = await login({ username, password });
+        setToken(token);
+        navigate(routes.root());
+      } catch (e) {
+        setFieldError('password', 'error.invalidCredentials');
+      }
+    },
   });
-
-  const onSubmit = (valuesData) => {
-    console.log({ valuesData });
-  };
-
-  console.log({ values });
-  console.log({ errors });
 
   return (
     <MainLayout>
@@ -66,7 +79,7 @@ const Login = () => {
                       placeholder={t('ui.form.fieldUserName')}
                       value={values.username}
                       onChange={handleChange}
-                      isInvalid={errors?.username && touched?.username}
+                      isInvalid={errors.username && touched.username}
                     />
                     <Form.Control.Feedback type="invalid" tooltip>
                       {t(`${errors.username}`)}
@@ -85,14 +98,19 @@ const Login = () => {
                       placeholder={t('ui.form.fieldPassword')}
                       value={values.password}
                       onChange={handleChange}
-                      isInvalid={errors?.password && touched?.password}
+                      isInvalid={errors.password && touched.password}
                     />
                     <Form.Control.Feedback type="invalid" tooltip>
                       {t(`${errors.password}`)}
                     </Form.Control.Feedback>
                   </FloatingLabel>
 
-                  <Button variant="outline-primary" type="submit" className="w-100 mb-3">
+                  <Button
+                    className="w-100 mb-3"
+                    variant="outline-primary"
+                    type="submit"
+                    disabled={isSubmitting}
+                  >
                     {t('ui.button.login')}
                   </Button>
                 </Form>
