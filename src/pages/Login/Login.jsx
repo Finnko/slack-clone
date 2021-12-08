@@ -1,16 +1,17 @@
 import React from 'react';
 import * as yup from 'yup';
-import MainLayout from '@src/layouts/MainLayout/MainLayout';
+import { useNavigate } from 'react-router';
 import { Button, FloatingLabel, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
-import routes from '@src/routes';
+import MainLayout from '../../layouts/MainLayout/MainLayout.jsx';
+import routes from '../../routes.js';
 
-import loginPic from '@assets/img/login.jpg';
+import loginPic from '../../../assets/img/login.jpg';
 import { login } from '../../api/api';
-import { useAuth } from '../../contexts/AuthContext';
-import { useNavigate } from 'react-router';
+import { useAuth } from '../../contexts/AuthContext.jsx';
+import { HttpCode } from '../../const.js';
 
 const schema = yup.object({
   username: yup.string()
@@ -44,7 +45,11 @@ const Login = () => {
         setToken(token);
         navigate(routes.root());
       } catch (e) {
-        setFieldError('password', 'error.invalidCredentials');
+        if (e.status === HttpCode.Unauthorized) {
+          setFieldError('password', 'error.invalidCredentials');
+        } else {
+          setFieldError('password', 'error.unknown');
+        }
       }
     },
   });

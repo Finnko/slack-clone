@@ -1,9 +1,9 @@
 import React from 'react';
 import { useRoutes } from 'react-router';
-import routes from '@src/routes';
-import Login from '../../pages/Login/Login';
-import Main from '../../pages/Main/Main';
-import PrivateRoute from '../PrivateRoute';
+import routes from '../../routes.js';
+import Login from '../../pages/Login/Login.jsx';
+import Main from '../../pages/Main/Main.jsx';
+import PrivateRoute from '../PrivateRoute.jsx';
 
 const appRoutes = [
   {

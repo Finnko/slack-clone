@@ -13,6 +13,7 @@ export default {
       },
       button: {
         login: 'Войти',
+        logout: 'Выйти',
       },
       link: {
         register: 'Регистрация',
