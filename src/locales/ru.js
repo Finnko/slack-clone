@@ -20,6 +20,8 @@ export default {
       },
       text: {
         noAccount: 'Нет аккаунта?',
+        channels: 'Каналы',
+
       },
     },
   },

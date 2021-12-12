@@ -7,11 +7,12 @@ const initialState = {
   channels: [],
   status: FetchStatus.IDLE,
   error: null,
+  currentChannelId: -1,
 };
 
 export const fetchChannels = createAsyncThunk('channels/fetchChannels', async () => {
   const response = await loadChannels();
-  return response.data;
+  return response;
 });
 
 const channelsSlice = createSlice({
@@ -22,14 +23,16 @@ const channelsSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(fetchChannels.pending, (state) => {
-        state.status = 'loading';
+        state.status = FetchStatus.PENDING;
       })
-      .addCase(fetchChannels.fulfilled, (state, action) => {
-        state.status = 'succeeded';
-        state.channels = action.payload;
+      .addCase(fetchChannels.fulfilled, (state, { payload }) => {
+        console.log({ payload });
+        state.status = FetchStatus.SUCCEED;
+        state.channels = payload.channels;
+        state.currentChannelId = payload.currentChannelId;
       })
       .addCase(fetchChannels.rejected, (state, action) => {
-        state.status = 'failed';
+        state.status = FetchStatus.FAILED;
         state.error = action.error.message;
       });
   },
@@ -40,3 +43,5 @@ const channelsSlice = createSlice({
 export default channelsSlice.reducer;
 
 export const selectChannels = (state) => state.channels.channels;
+export const selectChannelsStatus = (state) => state.channels.status;
+export const selectCurrentChannel = (state) => state.channels.currentChannelId;

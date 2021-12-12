@@ -1,43 +1,36 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Spinner } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
 import MainLayout from '../../layouts/MainLayout/MainLayout.jsx';
-import { fetchChannels } from '../../store/channels/channelsSlice.js';
+import {
+  fetchChannels,
+  selectChannels,
+  selectChannelsStatus,
+  selectCurrentChannel,
+} from '../../store/channels/channelsSlice.js';
+import Channels from '../../components/Channels/Channels.jsx';
+import { FetchStatus } from '../../const.js';
 
 const Main = () => {
+  const channels = useSelector(selectChannels);
+  const currentChannel = useSelector(selectCurrentChannel);
+  const status = useSelector(selectChannelsStatus);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchChannels());
   }, []);
 
+  if ([FetchStatus.PENDING, FetchStatus.IDLE].includes(status)) {
+    return <Spinner animation="grow" variant="primary" />;
+  }
+
   return (
     <MainLayout>
       <div className="container h-100 my-4 overflow-hidden rounded shadow">
         <div className="row h-100 bg-white flex-md-row">
-          <div className="col-4 col-md-2 border-end pt-5 px-0 bg-light">
-            <div className="d-flex justify-content-between mb-2 ps-4 pe-2">
-              <span>Каналы</span>
-              <button type="button" className="p-0 text-primary btn btn-group-vertical">
+          <Channels channelsList={channels} activeChannel={currentChannel} />
 
-                <span className="visually-hidden">+</span>
-              </button>
-            </div>
-            <ul className="nav flex-column nav-pills nav-fill px-2">
-              <li className="nav-item w-100">
-                <button type="button" className="w-100 rounded-0 text-start btn btn-secondary">
-                  <span className="me-1">#</span>
-                  general
-                </button>
-              </li>
-              <li className="nav-item w-100">
-                <button type="button" className="w-100 rounded-0 text-start btn">
-                  <span className="me-1">#</span>
-                  random
-                </button>
-              </li>
-            </ul>
-          </div>
           <div className="col p-0 h-100">
             <div className="d-flex flex-column h-100">
               <div className="bg-light mb-4 p-3 shadow-sm small">
