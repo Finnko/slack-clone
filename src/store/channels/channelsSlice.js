@@ -26,7 +26,7 @@ const channelsSlice = createSlice({
       })
       .addCase(fetchChannels.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.channels = state.channels.concat(action.payload);
+        state.channels = action.payload;
       })
       .addCase(fetchChannels.rejected, (state, action) => {
         state.status = 'failed';
@@ -35,7 +35,7 @@ const channelsSlice = createSlice({
   },
 });
 
-// export const { } = postsSlice.actions;
+// export const { } = channelsSlice.actions;
 
 export default channelsSlice.reducer;
 

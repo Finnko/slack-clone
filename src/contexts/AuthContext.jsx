@@ -1,5 +1,5 @@
 import React, { createContext } from 'react';
-import useLocalStorageState from '../hooks/useLocalStorage';
+import useLocalStorageState from '../hooks/useLocalStorage.jsx';
 
 const AuthContext = createContext({});
 AuthContext.displayName = 'AuthContext';
@@ -20,6 +20,7 @@ const useAuth = () => {
   if (context === undefined) {
     throw new Error('useAuth must be used within a AuthProvider');
   }
+
   return context;
 };
 

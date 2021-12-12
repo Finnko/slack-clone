@@ -8,6 +8,7 @@ import { initReactI18next } from 'react-i18next';
 import resources from './locales/index.js';
 import App from './components/App/App.jsx';
 import { AuthProvider } from './contexts/AuthContext.jsx';
+import { SocketIoProvider } from './contexts/SocketContext.jsx';
 import store from './store';
 
 import 'core-js/stable/index.js';
@@ -32,11 +33,13 @@ const render = async () => {
   const vdom = (
     <React.StrictMode>
       <Provider store={store}>
-        <AuthProvider>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </AuthProvider>
+        <SocketIoProvider>
+          <AuthProvider>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </AuthProvider>
+        </SocketIoProvider>
       </Provider>
     </React.StrictMode>
   );
