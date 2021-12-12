@@ -1,8 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button } from 'react-bootstrap';
 
-import { ReactComponent as PlusSvg } from '../../../assets/img/icons/plus.svg';
+import PlusSvg from '../../../assets/img/icons/plus.svg';
 
 const Channels = ({ channelsList, activeChannel }) => {
   const { t } = useTranslation();
@@ -11,10 +10,10 @@ const Channels = ({ channelsList, activeChannel }) => {
     <div className="col-4 col-md-2 border-end pt-5 px-0 bg-light">
       <div className="d-flex justify-content-between mb-2 ps-4 pe-2">
         <span>{t('ui.text.channels')}</span>
-        <Button className="p-0 text-primary btn btn-group-vertical" type="button">
+        <button className="p-0 text-primary btn btn-group-vertical" type="button">
           <PlusSvg />
           <span className="visually-hidden">+</span>
-        </Button>
+        </button>
       </div>
 
       <ul className="nav flex-column nav-pills nav-fill px-2">

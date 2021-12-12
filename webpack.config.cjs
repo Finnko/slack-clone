@@ -36,10 +36,6 @@ module.exports = {
         use: 'babel-loader',
       },
       {
-        test: /\.svg$/,
-        use: ['@svgr/webpack'],
-      },
-      {
         test: /\.s[ac]ss$/i,
         use: [
           { loader: MiniCssExtractPlugin.loader },
@@ -56,6 +52,20 @@ module.exports = {
           },
         ],
       },
+      {
+        test: /\.svg$/,
+        use: [
+          {
+            loader: "babel-loader"
+          },
+          {
+            loader: "react-svg-loader",
+            options: {
+              jsx: true // true outputs JSX tags
+            }
+          }
+        ]
+      }
     ],
   },
 };
