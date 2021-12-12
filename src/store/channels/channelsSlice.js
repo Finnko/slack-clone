@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, createSelector } from '@reduxjs/toolkit';
 import { FetchStatus } from '../../const.js';
 import { loadChannels } from '../../api/api.js';
 
@@ -26,7 +26,6 @@ const channelsSlice = createSlice({
         state.status = FetchStatus.PENDING;
       })
       .addCase(fetchChannels.fulfilled, (state, { payload }) => {
-        console.log({ payload });
         state.status = FetchStatus.SUCCEED;
         state.channels = payload.channels;
         state.currentChannelId = payload.currentChannelId;
@@ -44,4 +43,9 @@ export default channelsSlice.reducer;
 
 export const selectChannels = (state) => state.channels.channels;
 export const selectChannelsStatus = (state) => state.channels.status;
-export const selectCurrentChannel = (state) => state.channels.currentChannelId;
+export const selectCurrentChannelId = (state) => state.channels.currentChannelId;
+
+export const selectActiveChannel = createSelector(
+  [selectChannels, selectCurrentChannelId],
+  (channels, id) => channels.find((channel) => channel.id === id),
+);

@@ -13,7 +13,7 @@ const Navigation = () => {
     <nav className="shadow-sm navbar navbar-expand-lg navbar-light bg-white">
       <div className="container">
         <Link to={routes.root()} className="navbar-brand">
-          Hexlet Chat
+          {t('title')}
         </Link>
         {isAuth && (
           <Button variant="primary">{t('ui.button.logout')}</Button>
