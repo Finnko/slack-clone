@@ -1,11 +1,16 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
-import { Button, Form } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
+import { useSocket } from '../../contexts/SocketContext.jsx';
+import { useAuth } from '../../contexts/AuthContext.jsx';
 import ArrowSvg from '../../../assets/img/icons/arrow.svg';
 
-const MessageForm = () => {
+const MessageForm = ({ activeChannel }) => {
   const { t } = useTranslation();
+  const { sendMessage } = useSocket();
+  const { user } = useAuth();
+
   const {
     values,
     touched,
@@ -16,12 +21,22 @@ const MessageForm = () => {
     initialValues: {
       message: '',
     },
-    onSubmit: () => {},
+    onSubmit: ({ message }) => {
+      sendMessage({
+        body: message,
+        channelId: activeChannel.id,
+        user,
+      });
+    },
   });
+
+  console.log({ touched });
+  console.log({ values });
+  console.log('!Object.keys(touched).length', !Object.keys(touched).length);
 
   return (
     <div className="mt-auto px-5 py-3">
-      <Form noValidate="" className="py-1 border rounded-2" onSubmit={handleSubmit}>
+      <Form noValidate className="py-1 border rounded-2" onSubmit={handleSubmit}>
         <div className="input-group has-validation">
           <Form.Control
             onChange={handleChange}
@@ -37,7 +52,7 @@ const MessageForm = () => {
             <button
               type="submit"
               className="btn btn-group-vertical"
-              disabled={isSubmitting || !Object.keys(touched).length}
+              // disabled={!Object.keys(touched).length}
             >
               <ArrowSvg />
               <span className="visually-hidden">{t('ui.button.send')}</span>

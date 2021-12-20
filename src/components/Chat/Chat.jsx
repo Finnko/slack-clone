@@ -24,9 +24,9 @@ const Chat = () => {
           </span>
         </div>
 
-        <Messages />
+        <Messages messages={messages} />
 
-        <MessageForm />
+        <MessageForm activeChannel={activeChannel} />
       </div>
     </div>
   );
