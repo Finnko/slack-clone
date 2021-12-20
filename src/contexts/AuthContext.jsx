@@ -1,15 +1,22 @@
 import React, { createContext } from 'react';
-import useLocalStorageState from '../hooks/useLocalStorage.jsx';
+import useLocalStorage from '../hooks/useLocalStorage.jsx';
 
 const AuthContext = createContext({});
 AuthContext.displayName = 'AuthContext';
 
 const AuthProvider = ({ children }) => {
-  const [token, setToken] = useLocalStorageState('token');
+  const [token, setToken] = useLocalStorage('token');
+  const [user, setUser] = useLocalStorage('user');
   const isAuth = token !== '';
 
   return (
-    <AuthContext.Provider value={{ isAuth, setToken }}>
+    <AuthContext.Provider value={{
+      isAuth,
+      setToken,
+      user,
+      setUser,
+    }}
+    >
       {children}
     </AuthContext.Provider>
   );

@@ -22,7 +22,7 @@ const schema = yup.object({
 
 const Login = () => {
   const { t } = useTranslation();
-  const { setToken } = useAuth();
+  const { setToken, setUser } = useAuth();
   const navigate = useNavigate();
 
   const {
@@ -43,6 +43,7 @@ const Login = () => {
       try {
         const { token, user } = await login({ username, password });
         setToken(token);
+        setUser(user);
         navigate(routes.root());
       } catch (e) {
         if (e.status === HttpCode.Unauthorized) {
