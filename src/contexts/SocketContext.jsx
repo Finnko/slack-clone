@@ -21,13 +21,31 @@ const SocketIoProvider = ({ children }) => {
   }, []);
 
   const sendMessage = useCallback((messageData) => {
-    emitWithAcknowledgement('newMessage', messageData, (response) => {
-      console.log({ response });
-    });
+    emitWithAcknowledgement('newMessage', messageData);
+  }, []);
+
+  const createChannel = useCallback((channelData) => {
+    emitWithAcknowledgement('newChannel', channelData);
+  }, []);
+
+  const addChannel = useCallback((channelData) => {
+    emitWithAcknowledgement('newMessage', channelData);
+  }, []);
+
+  const removeChannel = useCallback((channelData) => {
+    emitWithAcknowledgement('newMessage', channelData);
+  }, []);
+
+  const renameChannel = useCallback((channelData) => {
+    emitWithAcknowledgement('newMessage', channelData);
   }, []);
 
   const value = useMemo(() => ({
     sendMessage,
+    createChannel,
+    addChannel,
+    removeChannel,
+    renameChannel,
   }), []);
 
   return (

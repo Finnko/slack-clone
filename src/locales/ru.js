@@ -2,9 +2,12 @@ export default {
   translation: {
     title: 'Hexlet Chat',
     error: {
-      required: 'Поле обязательно для заполнения',
+      required: 'Обязательное поле',
       invalidCredentials: 'Неверные имя пользователя или пароль',
       unknown: 'Произошла неизвестная ошибка, перезагрузите страницу и попробуйте снова',
+      channelMinLength: 'Минимальная длина имени канала - 3 символа',
+      channelMaxLength: 'Максимальная длина имени канала - 20 символов',
+      channelAlreadyExists: 'Канал с таким именем уже существует',
     },
     ui: {
       form: {
@@ -17,6 +20,10 @@ export default {
         login: 'Войти',
         logout: 'Выйти',
         send: 'Отправить',
+        cancel: 'Отменить',
+      },
+      modal: {
+        newChannel: 'Добавить канал',
       },
       link: {
         register: 'Регистрация',
