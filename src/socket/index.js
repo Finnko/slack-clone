@@ -15,7 +15,7 @@ export const emitWithAcknowledgement = (event, data) => (
     socket.emit(event, data, withTimeout(
       (response) => {
         if (response?.status === 'ok') {
-          resolve();
+          resolve(response);
         } else {
           console.error(response.error);
           reject(response.error);

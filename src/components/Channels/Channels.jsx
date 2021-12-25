@@ -1,16 +1,16 @@
 import React from 'react';
 import cn from 'classnames';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { setCurrentChannel } from '../../store/channels/channelsSlice.js';
+import { showModal } from '../../store/modal/modalSlice.js';
+import { ModalType } from '../../const';
 
 import PlusSvg from '../../../assets/img/icons/plus.svg';
-import { selectModalState } from '../../store/modal/modalSlice.js';
 
 const Channels = ({ channelsList, activeChannelId }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const info = useSelector(selectModalState);
 
   const handleClick = (id) => {
     dispatch(setCurrentChannel(id));
@@ -23,7 +23,7 @@ const Channels = ({ channelsList, activeChannelId }) => {
         <button
           className="p-0 text-primary btn btn-group-vertical"
           type="button"
-          onClick={() => {}}
+          onClick={() => dispatch(showModal({ type: ModalType.NEW_CHANNEL }))}
         >
           <PlusSvg />
           <span className="visually-hidden">+</span>

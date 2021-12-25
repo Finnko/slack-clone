@@ -20,9 +20,13 @@ const ChannelModal = () => {
     }
   };
 
+  if (type === null) {
+    return null;
+  }
+
   return (
-    <Modal show={isOpened} onHide={handleClose}>
-      {renderModalContent}
+    <Modal show={isOpened} centered onHide={handleClose}>
+      {renderModalContent(type)}
     </Modal>
   );
 };

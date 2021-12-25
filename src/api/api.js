@@ -4,6 +4,11 @@ import 'regenerator-runtime/runtime.js';
 
 const REQUEST_TIMEOUT = 5000;
 
+const ApiRoute = {
+  LOGIN: '/api/v1/login',
+  CHANNELS: '/api/v1/data',
+};
+
 const createApi = () => {
   const api = axios.create({
     timeout: REQUEST_TIMEOUT,
@@ -28,16 +33,12 @@ const createApi = () => {
 const api = createApi();
 
 const login = async ({ username, password }) => {
-  const url = '/api/v1/login';
-
-  const { data } = await api.post(url, { username, password });
+  const { data } = await api.post(ApiRoute.LOGIN, { username, password });
   return data;
 };
 
 const loadChannels = async () => {
-  const url = '/api/v1/data';
-
-  const { data } = await api.get(url);
+  const { data } = await api.get(ApiRoute.CHANNELS);
   return data;
 };
 
