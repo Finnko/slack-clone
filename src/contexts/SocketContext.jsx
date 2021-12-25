@@ -2,7 +2,7 @@ import React, {
   createContext, useCallback, useEffect, useMemo, useRef,
 } from 'react';
 import { useDispatch } from 'react-redux';
-import socket from '../sockets';
+import socket, { emitWithAcknowledgement } from '../socket';
 import { addMessage } from '../store/messages/messagesSlice';
 
 const SocketIoContext = createContext(null);
@@ -15,13 +15,15 @@ const SocketIoProvider = ({ children }) => {
   useEffect(() => {
     socketRef.current = socket;
 
-    socketRef.current.on('newMessage', (message) => {
-      dispatch(addMessage(message));
+    socketRef.current.on('newMessage', (data) => {
+      dispatch(addMessage(data));
     });
   }, []);
 
-  const sendMessage = useCallback((message) => {
-    socketRef.current.emit('newMessage', { message });
+  const sendMessage = useCallback((messageData) => {
+    emitWithAcknowledgement('newMessage', messageData, (response) => {
+      console.log({ response });
+    });
   }, []);
 
   const value = useMemo(() => ({

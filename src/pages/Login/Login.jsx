@@ -41,7 +41,7 @@ const Login = () => {
     validationSchema: schema,
     onSubmit: async ({ username, password }) => {
       try {
-        const { token, user } = await login({ username, password });
+        const { token, username: user } = await login({ username, password });
         setToken(token);
         setUser(user);
         navigate(routes.root());

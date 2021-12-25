@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
-import { createSlice } from '@reduxjs/toolkit';
-import { fetchChannels } from '../channels/channelsSlice.js';
+import { createSelector, createSlice } from '@reduxjs/toolkit';
+import { fetchChannels, selectCurrentChannelId } from '../channels/channelsSlice.js';
 
 const initialState = {
   messages: [],
@@ -28,4 +28,9 @@ export const {
 
 export default messagesSlice.reducer;
 
-export const selectMessages = (state) => state.messages.messages;
+const selectMessages = (state) => state.messages.messages;
+
+export const selectChannelMessages = createSelector(
+  [selectMessages, selectCurrentChannelId],
+  (messages, id) => messages.filter((message) => message.channelId === id),
+);

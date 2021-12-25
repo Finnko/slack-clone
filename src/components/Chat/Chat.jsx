@@ -4,12 +4,12 @@ import { useTranslation } from 'react-i18next';
 import MessageForm from '../MessageForm/MessageForm.jsx';
 import Messages from '../Messages/Messages.jsx';
 import { selectActiveChannel } from '../../store/channels/channelsSlice.js';
-import { selectMessages } from '../../store/messages/messagesSlice.js';
+import { selectChannelMessages } from '../../store/messages/messagesSlice.js';
 
 const Chat = () => {
   const { t } = useTranslation();
   const activeChannel = useSelector(selectActiveChannel);
-  const messages = useSelector(selectMessages);
+  const channelMessages = useSelector(selectChannelMessages);
 
   return (
     <div className="col p-0 h-100">
@@ -20,11 +20,11 @@ const Chat = () => {
           </p>
 
           <span className="text-muted">
-            {t('plural.messageWithCount', { count: messages.length })}
+            {t('plural.messageWithCount', { count: channelMessages.length })}
           </span>
         </div>
 
-        <Messages messages={messages} />
+        <Messages messages={channelMessages} />
 
         <MessageForm activeChannel={activeChannel} />
       </div>
