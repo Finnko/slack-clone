@@ -63,24 +63,24 @@ const NewChannel = ({ onClose }) => {
           </Form.Control.Feedback>
         </Form.Group>
 
+        <div className="d-flex justify-content-end">
+          <Button
+            variant="secondary"
+            type="button"
+            className="me-2"
+            onClick={onClose}
+          >
+            {t('ui.button.cancel')}
+          </Button>
+          <Button
+            variant="primary"
+            type="submit"
+            disabled={!dirty || isSubmitting}
+          >
+            {t('ui.button.send')}
+          </Button>
+        </div>
       </Modal.Body>
-
-      <Modal.Footer>
-        <Button
-          variant="secondary"
-          type="button"
-          onClick={onClose}
-        >
-          {t('ui.button.cancel')}
-        </Button>
-        <Button
-          variant="primary"
-          type="submit"
-          disabled={!dirty || isSubmitting}
-        >
-          {t('ui.button.send')}
-        </Button>
-      </Modal.Footer>
     </Form>
   );
 };
