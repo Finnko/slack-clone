@@ -4,14 +4,14 @@ import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 import { useSelector } from 'react-redux';
 import makeValidationsSchema from '../../helpers/makeValidationSchema.js';
-import { selectChannels } from '../../store/channels/channelsSlice.js';
+import { selectChannelNames, selectChannels } from '../../store/channels/channelsSlice.js';
 import { useSocket } from '../../contexts/SocketContext.jsx';
 
 const NewChannel = ({ onClose }) => {
   const { t } = useTranslation();
   const { createChannel } = useSocket();
   const inputRef = useRef(null);
-  const channels = useSelector(selectChannels);
+  const channelNames = useSelector(selectChannelNames);
 
   const {
     values,
@@ -25,7 +25,7 @@ const NewChannel = ({ onClose }) => {
     initialValues: {
       channel: '',
     },
-    validationSchema: makeValidationsSchema(channels),
+    validationSchema: makeValidationsSchema(channelNames),
     onSubmit: async ({ channel }) => {
       try {
         await createChannel({ name: channel });
