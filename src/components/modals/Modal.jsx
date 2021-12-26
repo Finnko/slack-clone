@@ -1,13 +1,14 @@
 import React from 'react';
 import { Modal } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
+import RemoveChannel from './RemoveChannel.jsx';
 import NewChannel from './NewChannel.jsx';
 import { ModalType } from '../../const.js';
 import { hideModal, selectModalState } from '../../store/modal/modalSlice.js';
 
 const ChannelModal = () => {
   const dispatch = useDispatch();
-  const { isOpened, type } = useSelector(selectModalState);
+  const { isOpened, type, extra } = useSelector(selectModalState);
 
   const handleClose = () => dispatch(hideModal());
 
@@ -15,6 +16,8 @@ const ChannelModal = () => {
     switch (modalType) {
       case ModalType.NEW_CHANNEL:
         return <NewChannel onClose={handleClose} />;
+      case ModalType.REMOVE_CHANNEL:
+        return <RemoveChannel onClose={handleClose} extra={extra} />;
       default:
         throw new Error(`Unknown modal type ${type}`);
     }

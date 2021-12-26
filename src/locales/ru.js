@@ -26,6 +26,7 @@ export default {
       },
       modal: {
         newChannel: 'Добавить канал',
+        removeChannel: 'Удалить канал',
       },
       link: {
         register: 'Регистрация',
@@ -33,6 +34,7 @@ export default {
       text: {
         noAccount: 'Нет аккаунта?',
         channels: 'Каналы',
+        areYouSure: 'Уверены?',
       },
       aria: {
         newMessage: 'Новое сообщение',

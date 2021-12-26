@@ -4,7 +4,11 @@ import React, {
 import { useDispatch } from 'react-redux';
 import socket, { emitWithAcknowledgement } from '../socket';
 import { addMessage } from '../store/messages/messagesSlice';
-import { setCurrentChannel, addChannel } from '../store/channels/channelsSlice';
+import {
+  setCurrentChannel,
+  addChannel,
+  deleteChannel,
+} from '../store/channels/channelsSlice';
 
 const SocketIoContext = createContext(null);
 SocketIoContext.displayName = 'SocketIoContext';
@@ -24,13 +28,17 @@ const SocketIoProvider = ({ children }) => {
       dispatch(addChannel(channelData));
       dispatch(setCurrentChannel(channelData.id));
     });
+
+    socketRef.current.on('removeChannel', ({ id }) => {
+      dispatch(deleteChannel(id));
+    });
   }, []);
 
   const sendMessage = useCallback((messageData) => emitWithAcknowledgement('newMessage', messageData), []);
 
   const createChannel = useCallback((channelData) => emitWithAcknowledgement('newChannel', channelData), []);
 
-  const removeChannel = useCallback((channelData) => emitWithAcknowledgement('newMessage', channelData), []);
+  const removeChannel = useCallback((channelData) => emitWithAcknowledgement('removeChannel', channelData), []);
 
   const renameChannel = useCallback((channelData) => emitWithAcknowledgement('newMessage', channelData), []);
 
