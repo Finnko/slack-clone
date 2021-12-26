@@ -27,6 +27,10 @@ const Channels = ({ channel, activeChannelId }) => {
     dispatch(showModal({ type: ModalType.REMOVE_CHANNEL, extra: id }));
   };
 
+  const handleRename = (channelData) => () => {
+    dispatch(showModal({ type: ModalType.RENAME_CHANNEL, extra: channelData }));
+  };
+
   const isActive = activeChannelId === channel.id;
 
   return (
@@ -52,7 +56,7 @@ const Channels = ({ channel, activeChannelId }) => {
               <Dropdown.Item href="/#" onClick={handleRemove(channel.id)}>
                 {t('ui.button.remove')}
               </Dropdown.Item>
-              <Dropdown.Item href="/#">
+              <Dropdown.Item href="/#" onClick={handleRename({ id: channel.id, name: channel.name })}>
                 {t('ui.button.rename')}
               </Dropdown.Item>
             </Dropdown.Menu>

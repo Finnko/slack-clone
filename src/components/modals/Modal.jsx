@@ -3,6 +3,7 @@ import { Modal } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import RemoveChannel from './RemoveChannel.jsx';
 import NewChannel from './NewChannel.jsx';
+import RenameChannel from './RenameChannel.jsx';
 import { ModalType } from '../../const.js';
 import { hideModal, selectModalState } from '../../store/modal/modalSlice.js';
 
@@ -18,6 +19,8 @@ const ChannelModal = () => {
         return <NewChannel onClose={handleClose} />;
       case ModalType.REMOVE_CHANNEL:
         return <RemoveChannel onClose={handleClose} extra={extra} />;
+      case ModalType.RENAME_CHANNEL:
+        return <RenameChannel onClose={handleClose} channelData={extra} />;
       default:
         throw new Error(`Unknown modal type ${type}`);
     }

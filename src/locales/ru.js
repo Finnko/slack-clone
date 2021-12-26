@@ -27,6 +27,7 @@ export default {
       modal: {
         newChannel: 'Добавить канал',
         removeChannel: 'Удалить канал',
+        renameChannel: 'Переименовать канал',
       },
       link: {
         register: 'Регистрация',

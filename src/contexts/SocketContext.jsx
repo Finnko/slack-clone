@@ -8,6 +8,7 @@ import {
   setCurrentChannel,
   addChannel,
   deleteChannel,
+  updateChannel,
 } from '../store/channels/channelsSlice';
 
 const SocketIoContext = createContext(null);
@@ -32,6 +33,10 @@ const SocketIoProvider = ({ children }) => {
     socketRef.current.on('removeChannel', ({ id }) => {
       dispatch(deleteChannel(id));
     });
+
+    socketRef.current.on('renameChannel', (channelData) => {
+      dispatch(updateChannel(channelData));
+    });
   }, []);
 
   const sendMessage = useCallback((messageData) => emitWithAcknowledgement('newMessage', messageData), []);
@@ -40,7 +45,7 @@ const SocketIoProvider = ({ children }) => {
 
   const removeChannel = useCallback((channelData) => emitWithAcknowledgement('removeChannel', channelData), []);
 
-  const renameChannel = useCallback((channelData) => emitWithAcknowledgement('newMessage', channelData), []);
+  const renameChannel = useCallback((channelData) => emitWithAcknowledgement('renameChannel', channelData), []);
 
   const value = useMemo(() => ({
     sendMessage,

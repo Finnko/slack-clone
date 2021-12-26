@@ -7,9 +7,9 @@ import makeValidationsSchema from '../../helpers/makeValidationSchema.js';
 import { selectChannelNames } from '../../store/channels/channelsSlice.js';
 import { useSocket } from '../../contexts/SocketContext.jsx';
 
-const NewChannel = ({ onClose }) => {
+const RenameChannel = ({ onClose, channelData }) => {
   const { t } = useTranslation();
-  const { createChannel } = useSocket();
+  const { renameChannel } = useSocket();
   const inputRef = useRef(null);
   const channelNames = useSelector(selectChannelNames);
 
@@ -23,12 +23,12 @@ const NewChannel = ({ onClose }) => {
     handleSubmit,
   } = useFormik({
     initialValues: {
-      channel: '',
+      channel: channelData.name,
     },
     validationSchema: makeValidationsSchema(channelNames),
     onSubmit: async ({ channel }) => {
       try {
-        await createChannel({ name: channel });
+        await renameChannel({ name: channel, id: channelData.id });
         onClose();
       } catch (e) {
         console.log(e);
@@ -43,7 +43,7 @@ const NewChannel = ({ onClose }) => {
   return (
     <Form onSubmit={handleSubmit}>
       <Modal.Header closeButton>
-        <Modal.Title>{t('ui.modal.newChannel')}</Modal.Title>
+        <Modal.Title>{t('ui.modal.renameChannel')}</Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
@@ -85,4 +85,4 @@ const NewChannel = ({ onClose }) => {
   );
 };
 
-export default NewChannel;
+export default RenameChannel;

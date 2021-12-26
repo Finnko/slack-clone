@@ -29,6 +29,12 @@ const channelsSlice = createSlice({
       state.channels = state.channels.filter((ch) => ch.id !== action.payload);
       state.currentChannelId = state.channels[0].id;
     },
+    updateChannel(state, action) {
+      const index = state.channels.findIndex((ch) => ch.id === action.payload.id);
+      if (index !== -1) {
+        state.channels[index] = action.payload;
+      }
+    },
   },
   extraReducers(builder) {
     builder
@@ -51,6 +57,7 @@ export const {
   setCurrentChannel,
   addChannel,
   deleteChannel,
+  updateChannel,
 } = channelsSlice.actions;
 
 export default channelsSlice.reducer;
