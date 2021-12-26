@@ -21,6 +21,8 @@ export default {
         logout: 'Выйти',
         send: 'Отправить',
         cancel: 'Отменить',
+        remove: 'Удалить',
+        rename: 'Переименовать',
       },
       modal: {
         newChannel: 'Добавить канал',

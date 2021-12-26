@@ -1,59 +1,56 @@
-import React, { useState } from 'react';
+import React from 'react';
 import cn from 'classnames';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import {
+  Button, ButtonGroup, Dropdown,
+} from 'react-bootstrap';
 import { setCurrentChannel } from '../../store/channels/channelsSlice.js';
 
-const Channels = ({ channel, isActive }) => {
-  const [open, setOpen] = useState(false);
+const Channels = ({ channel, activeChannelId }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
   const handleClick = (id) => {
+    if (id === activeChannelId) {
+      return;
+    }
+
     dispatch(setCurrentChannel(id));
   };
 
+  const isActive = activeChannelId === channel.id;
+
   return (
     <li className="nav-item w-100" key={channel.id}>
-      <div role="group" className="d-flex show dropdown btn-group">
-        <button
-          className={cn('w-100 rounded-0 text-start btn', { 'btn-secondary': isActive })}
+      <Dropdown role="group" className="d-flex" as={ButtonGroup}>
+        <Button
+          variant={isActive ? 'secondary' : 'light'}
+          className="w-100 rounded-0 text-start"
           type="button"
           onClick={() => handleClick(channel.id)}
         >
           <span className="me-1">#</span>
           {channel.name}
-        </button>
+        </Button>
 
         {channel.removable && (
           <>
-            <button
-              aria-haspopup="true"
-              aria-expanded="true"
-              type="button"
-              className="flex-grow-0 dropdown-toggle dropdown-toggle-split btn"
-              onClick={() => setOpen(!open)}
-            >
-              <span className="visually-hidden">Управление каналом</span>
-            </button>
-            <div
-              x-placement="bottom-end"
-              aria-labelledby=""
-              className={cn('dropdown-menu', { show: open })}
-              data-popper-reference-hidden="false"
-              data-popper-escaped="false"
-              data-popper-placement="bottom-start"
-            >
-              <a href="/#" className="dropdown-item" role="button">
-                Удалить
-              </a>
-              <a href="/#" className="dropdown-item" role="button">
-                Переименовать
-              </a>
-            </div>
+            <Dropdown.Toggle
+              split
+              variant={isActive ? 'secondary' : 'light'}
+            />
+            <Dropdown.Menu>
+              <Dropdown.Item href="/#">
+                {t('ui.button.remove')}
+              </Dropdown.Item>
+              <Dropdown.Item href="/#">
+                {t('ui.button.rename')}
+              </Dropdown.Item>
+            </Dropdown.Menu>
           </>
         )}
-      </div>
+      </Dropdown>
     </li>
   );
 };

@@ -27,7 +27,7 @@ const Channels = ({ channelsList, activeChannelId }) => {
 
       <ul className="nav flex-column nav-pills nav-fill px-2">
         {channelsList.map((channel) => (
-          <Channel key={channel.id} channel={channel} isActive={channel.id === activeChannelId} />
+          <Channel key={channel.id} channel={channel} activeChannelId={activeChannelId} />
         ))}
       </ul>
     </div>
