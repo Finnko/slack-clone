@@ -6,6 +6,7 @@ const REQUEST_TIMEOUT = 5000;
 
 const ApiRoute = {
   LOGIN: '/api/v1/login',
+  REGISTER: '/api/v1/signup',
   CHANNELS: '/api/v1/data',
 };
 
@@ -37,9 +38,14 @@ const login = async ({ username, password }) => {
   return data;
 };
 
+const register = async ({ username, password }) => {
+  const { data } = await api.post(ApiRoute.REGISTER, { username, password });
+  return data;
+};
+
 const loadChannels = async () => {
   const { data } = await api.get(ApiRoute.CHANNELS);
   return data;
 };
 
-export { login, loadChannels };
+export { login, loadChannels, register };

@@ -4,6 +4,7 @@ import routes from '../../routes.js';
 import Login from '../../pages/Login/Login.jsx';
 import Main from '../../pages/Main/Main.jsx';
 import PrivateRoute from '../PrivateRoute.jsx';
+import SignUp from '../../pages/SignUp/SignUp.jsx';
 
 const appRoutes = [
   {
@@ -17,6 +18,10 @@ const appRoutes = [
   {
     path: routes.login(),
     element: <Login />,
+  },
+  {
+    path: routes.signup(),
+    element: <SignUp />,
   },
   // {
   //   path: "*",

@@ -13,6 +13,7 @@ const ModalType = {
 
 const HttpCode = {
   Unauthorized: 401,
+  AlreadyExists: 409,
 };
 
 export { HttpCode, FetchStatus, ModalType };

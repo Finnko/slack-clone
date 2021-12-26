@@ -2,25 +2,29 @@ import React from 'react';
 import * as yup from 'yup';
 import { useNavigate } from 'react-router';
 import { Button, FloatingLabel, Form } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 import MainLayout from '../../layouts/MainLayout/MainLayout.jsx';
 import routes from '../../routes.js';
 
-import loginPic from '../../../assets/img/login.jpg';
-import { login } from '../../api/api';
+import registerPic from '../../../assets/img/register.jpg';
+import { register } from '../../api/api';
 import { useAuth } from '../../contexts/AuthContext.jsx';
 import { HttpCode } from '../../const.js';
 
 const schema = yup.object({
   username: yup.string()
-    .required('error.required'),
+    .required('error.required')
+    .min(3, 'error.invalidUsername')
+    .max(20, 'error.invalidUsername'),
   password: yup.string()
-    .required('error.required'),
+    .required('error.required')
+    .min(6, 'error.invalidUserPassword'),
+  passwordConfirmation: yup.string()
+    .oneOf([yup.ref('password'), null], 'error.passwordMatch'),
 });
 
-const Login = () => {
+const SignUp = () => {
   const { t } = useTranslation();
   const { setToken, setUser } = useAuth();
   const navigate = useNavigate();
@@ -37,17 +41,18 @@ const Login = () => {
     initialValues: {
       username: '',
       password: '',
+      passwordConfirmation: '',
     },
     validationSchema: schema,
     onSubmit: async ({ username, password }) => {
       try {
-        const { token, username: user } = await login({ username, password });
+        const { token, username: user } = await register({ username, password });
         setToken(token);
         setUser(user);
         navigate(routes.root());
       } catch (e) {
-        if (e.status === HttpCode.Unauthorized) {
-          setFieldError('password', 'error.invalidCredentials');
+        if (e.status === HttpCode.AlreadyExists) {
+          setFieldError('password', 'error.userExists');
         } else {
           setFieldError('password', 'error.unknown');
         }
@@ -61,28 +66,28 @@ const Login = () => {
         <div className="row justify-content-center align-content-center h-100">
           <div className="col-12 col-md-8 col-xxl-6">
             <div className="card shadow-sm">
-              <div className="card-body row p-5">
-                <div className="col-12 col-md-6 d-flex align-items-center justify-content-center">
+              <div className="card-body d-flex flex-column flex-md-row justify-content-around align-items-center p-5">
+                <div>
                   <img
-                    src={loginPic}
+                    src={registerPic}
                     className="rounded-circle"
-                    alt={t('ui.form.loginTitle')}
+                    alt={t('ui.form.registerTitle')}
                   />
                 </div>
 
-                <Form className="col-12 col-md-6 mt-3 mt-mb-0" onSubmit={handleSubmit}>
-                  <h1 className="text-center mb-4">{t('ui.form.loginTitle')}</h1>
+                <Form className="w-50" onSubmit={handleSubmit}>
+                  <h1 className="text-center mb-4">{t('ui.form.registerTitle')}</h1>
 
                   <FloatingLabel
                     controlId="username"
-                    label={t('ui.form.fieldUserName')}
+                    label={t('ui.form.fieldNewUser')}
                     className="mb-3"
                   >
                     <Form.Control
                       type="text"
                       name="username"
                       autoComplete="off"
-                      placeholder={t('ui.form.fieldUserName')}
+                      placeholder={t('ui.form.fieldNewUser')}
                       value={values.username}
                       onChange={handleChange}
                       isInvalid={errors.username && touched.username}
@@ -95,12 +100,11 @@ const Login = () => {
                   <FloatingLabel
                     controlId="password"
                     label={t('ui.form.fieldPassword')}
-                    className="mb-4"
+                    className="mb-3"
                   >
                     <Form.Control
                       type="password"
                       name="password"
-                      autoComplete="off"
                       placeholder={t('ui.form.fieldPassword')}
                       value={values.password}
                       onChange={handleChange}
@@ -111,23 +115,34 @@ const Login = () => {
                     </Form.Control.Feedback>
                   </FloatingLabel>
 
+                  <FloatingLabel
+                    controlId="passwordConfirmation"
+                    label={t('ui.form.fieldPasswordConfirmation')}
+                    className="mb-4"
+                  >
+                    <Form.Control
+                      type="password"
+                      name="passwordConfirmation"
+                      placeholder={t('ui.form.fieldPasswordConfirmation')}
+                      value={values.passwordConfirmation}
+                      onChange={handleChange}
+                      isInvalid={errors.passwordConfirmation && touched.passwordConfirmation}
+                    />
+                    <Form.Control.Feedback type="invalid" tooltip>
+                      {t(`${errors.passwordConfirmation}`)}
+                    </Form.Control.Feedback>
+                  </FloatingLabel>
+
                   <Button
-                    className="w-100 mb-3"
+                    className="w-100"
                     variant="outline-primary"
                     type="submit"
                     disabled={isSubmitting}
                   >
-                    {t('ui.button.login')}
+                    {t('ui.button.register')}
                   </Button>
                 </Form>
 
-              </div>
-              <div className="card-footer p-4">
-                <div className="text-center">
-                  <span>{t('ui.text.noAccount')}</span>
-                  {' '}
-                  <Link to={routes.signup()}>{t('ui.link.register')}</Link>
-                </div>
               </div>
             </div>
           </div>
@@ -137,4 +152,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUp;
