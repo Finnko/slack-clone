@@ -3,7 +3,7 @@ import { useRoutes } from 'react-router';
 import routes from '../../routes.js';
 import Login from '../../pages/Login/Login.jsx';
 import Main from '../../pages/Main/Main.jsx';
-import PrivateRoute from '../PrivateRoute.jsx';
+import PrivateRoute from '../PrivateRoute/PrivateRoute.jsx';
 import SignUp from '../../pages/SignUp/SignUp.jsx';
 
 const appRoutes = [
