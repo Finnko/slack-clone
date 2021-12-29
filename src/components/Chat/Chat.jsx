@@ -1,15 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import MessageForm from '../MessageForm/MessageForm.jsx';
 import Messages from '../Messages/Messages.jsx';
-import { selectActiveChannel } from '../../store/channels/channelsSlice.js';
+import { selectActiveChannel, selectChannelsError } from '../../store/channels/channelsSlice.js';
 import { selectChannelMessages } from '../../store/messages/messagesSlice.js';
 
 const Chat = () => {
   const { t } = useTranslation();
   const activeChannel = useSelector(selectActiveChannel);
   const channelMessages = useSelector(selectChannelMessages);
+  const channelError = useSelector(selectChannelsError);
+
+  useEffect(() => {
+    if (channelError) {
+      toast.error(t('notifications.loadChannelsError'));
+    }
+  }, [channelError]);
 
   return (
     <div className="col p-0 h-100">

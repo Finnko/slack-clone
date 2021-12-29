@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import * as yup from 'yup';
+import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router';
 import { Button, FloatingLabel, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
@@ -24,6 +25,7 @@ const Login = () => {
   const { t } = useTranslation();
   const { setToken, setUser } = useAuth();
   const navigate = useNavigate();
+  const inputRef = useRef(null);
 
   const {
     values,
@@ -49,11 +51,15 @@ const Login = () => {
         if (e.status === HttpCode.Unauthorized) {
           setFieldError('password', 'error.invalidCredentials');
         } else {
-          setFieldError('password', 'error.unknown');
+          toast.error(t('notifications.loginError'));
         }
       }
     },
   });
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
 
   return (
     <MainLayout>
@@ -85,6 +91,7 @@ const Login = () => {
                       placeholder={t('ui.form.fieldUserName')}
                       value={values.username}
                       onChange={handleChange}
+                      ref={inputRef}
                       isInvalid={errors.username && touched.username}
                     />
                     <Form.Control.Feedback type="invalid" tooltip>

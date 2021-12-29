@@ -1,5 +1,6 @@
 import React from 'react';
 import * as yup from 'yup';
+import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router';
 import { Button, FloatingLabel, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
@@ -54,7 +55,7 @@ const SignUp = () => {
         if (e.status === HttpCode.AlreadyExists) {
           setFieldError('password', 'error.userExists');
         } else {
-          setFieldError('password', 'error.unknown');
+          toast.error(t('notifications.registerError'));
         }
       }
     },

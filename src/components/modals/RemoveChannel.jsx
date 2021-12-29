@@ -1,4 +1,5 @@
 import React from 'react';
+import { toast } from 'react-toastify';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useSocket } from '../../contexts/SocketContext.jsx';
@@ -13,8 +14,10 @@ const NewChannel = ({ onClose, extra }) => {
     try {
       await removeChannel({ id: extra });
       onClose();
+      toast.success(t('notifications.removeChannel.success'));
     } catch (e) {
       console.log(e);
+      toast.error(t('notifications.removeChannel.error'));
     }
   };
 

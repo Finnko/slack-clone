@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { toast } from 'react-toastify';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
@@ -30,8 +31,10 @@ const NewChannel = ({ onClose }) => {
       try {
         await createChannel({ name: channel });
         onClose();
+        toast.success(t('notifications.createChannel.success'));
       } catch (e) {
         console.log(e);
+        toast.error(t('notifications.createChannel.error'));
       }
     },
   });

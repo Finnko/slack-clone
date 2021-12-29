@@ -1,5 +1,7 @@
 import React, { useRef } from 'react';
+import { toast } from 'react-toastify';
 import * as yup from 'yup';
+import * as leoProfanity from 'leo-profanity';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 import { Form } from 'react-bootstrap';
@@ -32,7 +34,7 @@ const MessageForm = ({ activeChannel }) => {
     onSubmit: async ({ message }, { resetForm }) => {
       try {
         await sendMessage({
-          body: message,
+          body: leoProfanity.clean(message),
           channelId: activeChannel.id,
           user,
         });
@@ -41,6 +43,7 @@ const MessageForm = ({ activeChannel }) => {
         inputRef.current.focus();
       } catch (e) {
         console.log(e);
+        toast.error(t('notifications.sendMessageError'));
       }
     },
   });

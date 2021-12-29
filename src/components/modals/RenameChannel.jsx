@@ -3,6 +3,7 @@ import { Button, Form, Modal } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import makeValidationsSchema from '../../helpers/makeValidationSchema.js';
 import { selectChannelNames } from '../../store/channels/channelsSlice.js';
 import { useSocket } from '../../contexts/SocketContext.jsx';
@@ -30,8 +31,10 @@ const RenameChannel = ({ onClose, channelData }) => {
       try {
         await renameChannel({ name: channel, id: channelData.id });
         onClose();
+        toast.success(t('notifications.renameChannel.success'));
       } catch (e) {
         console.log(e);
+        toast.error(t('notifications.renameChannel.error'));
       }
     },
   });
