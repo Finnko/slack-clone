@@ -4,10 +4,10 @@ import { useAuth } from '../../contexts/AuthContext.jsx';
 import routes from '../../routes';
 
 const PrivateRoute = ({ children }) => {
-  const { authState } = useAuth();
+  const { isAuth } = useAuth();
   const location = useLocation();
 
-  if (!authState) {
+  if (!isAuth) {
     return <Navigate to={routes.login()} state={{ from: location }} />;
   }
 

@@ -9,7 +9,7 @@ import { useAuth } from '../../contexts/AuthContext.jsx';
 const Navigation = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { authState, setToken, setUser } = useAuth();
+  const { isAuth, setToken, setUser } = useAuth();
 
   const handleClick = () => {
     setToken('');
@@ -23,7 +23,7 @@ const Navigation = () => {
         <Link to={routes.root()} className="navbar-brand">
           {t('title')}
         </Link>
-        {authState && (
+        {isAuth && (
           <Button variant="primary" onClick={handleClick}>{t('ui.button.logout')}</Button>
         )}
       </div>
