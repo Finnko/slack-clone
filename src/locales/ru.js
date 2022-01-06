@@ -34,7 +34,7 @@ export default {
     ui: {
       form: {
         loginTitle: 'Войти',
-        registerTitle: 'Регистрация',
+        registerTitle: 'Зарегистироваться',
         fieldUserName: 'Ваш ник',
         fieldNewUser: 'Имя пользователя',
         fieldPassword: 'Пароль',
