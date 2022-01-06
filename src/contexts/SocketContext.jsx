@@ -2,7 +2,7 @@ import React, {
   createContext, useCallback, useEffect, useMemo, useRef,
 } from 'react';
 import { useDispatch } from 'react-redux';
-import socket, { emitWithAcknowledgement } from '../socket';
+import emitWithAcknowledgement from '../socket';
 import { addMessage } from '../store/messages/messagesSlice';
 import {
   setCurrentChannel,
@@ -14,12 +14,14 @@ import {
 const SocketIoContext = createContext(null);
 SocketIoContext.displayName = 'SocketIoContext';
 
-const SocketIoProvider = ({ children }) => {
+const SocketIoProvider = ({ socket, children }) => {
   const dispatch = useDispatch();
-  const socketRef = useRef(null);
+  const socketRef = useRef(socket);
 
   useEffect(() => {
-    socketRef.current = socket;
+    socketRef.current.on('connect', () => {
+      socketRef.current.sendBuffer = [];
+    });
 
     socketRef.current.on('newMessage', (data) => {
       dispatch(addMessage(data));
@@ -39,13 +41,13 @@ const SocketIoProvider = ({ children }) => {
     });
   }, []);
 
-  const sendMessage = useCallback((messageData) => emitWithAcknowledgement('newMessage', messageData), []);
+  const sendMessage = useCallback((messageData) => emitWithAcknowledgement(socketRef.current, 'newMessage', messageData), []);
 
-  const createChannel = useCallback((channelData) => emitWithAcknowledgement('newChannel', channelData), []);
+  const createChannel = useCallback((channelData) => emitWithAcknowledgement(socketRef.current, 'newChannel', channelData), []);
 
-  const removeChannel = useCallback((channelData) => emitWithAcknowledgement('removeChannel', channelData), []);
+  const removeChannel = useCallback((channelData) => emitWithAcknowledgement(socketRef.current, 'removeChannel', channelData), []);
 
-  const renameChannel = useCallback((channelData) => emitWithAcknowledgement('renameChannel', channelData), []);
+  const renameChannel = useCallback((channelData) => emitWithAcknowledgement(socketRef.current, 'renameChannel', channelData), []);
 
   const value = useMemo(() => ({
     sendMessage,

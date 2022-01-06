@@ -1,6 +1,5 @@
 // @ts-check
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
@@ -20,7 +19,8 @@ import 'regenerator-runtime/runtime.js';
 
 import '../assets/application.scss';
 
-const init = async () => {
+export default async (socketInstance) => {
+  const rollbarConfig = setupRollbar();
   leoProfanity.loadDictionary('ru');
 
   await i18n
@@ -31,18 +31,13 @@ const init = async () => {
       },
       fallbackLng: 'ru',
     });
-};
 
-const render = async () => {
-  const rollbarConfig = setupRollbar();
-  await init();
-
-  const vdom = (
+  return (
     <React.StrictMode>
       <Provider store={store}>
         <RollbarProvider config={rollbarConfig}>
           <ErrorBoundary>
-            <SocketIoProvider>
+            <SocketIoProvider socket={socketInstance}>
               <AuthProvider>
                 <BrowserRouter>
                   <App />
@@ -55,8 +50,4 @@ const render = async () => {
       </Provider>
     </React.StrictMode>
   );
-
-  ReactDOM.render(vdom, document.getElementById('chat'));
 };
-
-render();
