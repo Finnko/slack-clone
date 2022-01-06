@@ -56,6 +56,7 @@ const RenameChannel = ({ onClose, channelData }) => {
             name="channel"
             ref={inputRef}
             className="mb-2"
+            aria-label={t('ui.aria.channelName')}
             value={values.channel}
             onChange={handleChange}
             disabled={isSubmitting}

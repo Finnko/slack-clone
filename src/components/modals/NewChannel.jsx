@@ -57,6 +57,7 @@ const NewChannel = ({ onClose }) => {
             ref={inputRef}
             className="mb-2"
             value={values.channel}
+            aria-label={t('ui.aria.channelName')}
             onChange={handleChange}
             disabled={isSubmitting}
             isInvalid={errors.channel && touched.channel}

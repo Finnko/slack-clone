@@ -65,6 +65,7 @@ export default {
       },
       aria: {
         newMessage: 'Новое сообщение',
+        channelName: 'Имя канала',
       },
     },
     plural: {
