@@ -52,7 +52,7 @@ const SignUp = () => {
         setUser(user);
         navigate(routes.root());
       } catch (e) {
-        if (e.status === HttpCode.AlreadyExists) {
+        if (e.response.status === HttpCode.AlreadyExists) {
           setFieldError('password', 'error.userExists');
         } else {
           toast.error(t('notifications.registerError'));

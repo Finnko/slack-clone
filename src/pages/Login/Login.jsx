@@ -48,7 +48,7 @@ const Login = () => {
         setUser(user);
         navigate(routes.root());
       } catch (e) {
-        if (e.status === HttpCode.Unauthorized) {
+        if (e.response.status === HttpCode.Unauthorized) {
           setFieldError('password', 'error.invalidCredentials');
         } else {
           toast.error(t('notifications.loginError'));
