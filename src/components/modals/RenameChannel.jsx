@@ -16,7 +16,6 @@ const RenameChannel = ({ onClose, channelData }) => {
 
   const {
     values,
-    dirty,
     touched,
     errors,
     isSubmitting,
@@ -79,7 +78,7 @@ const RenameChannel = ({ onClose, channelData }) => {
           <Button
             variant="primary"
             type="submit"
-            disabled={!dirty || isSubmitting}
+            disabled={isSubmitting}
           >
             {t('ui.button.send')}
           </Button>

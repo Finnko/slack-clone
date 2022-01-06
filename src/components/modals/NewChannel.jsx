@@ -16,7 +16,6 @@ const NewChannel = ({ onClose }) => {
 
   const {
     values,
-    dirty,
     touched,
     errors,
     isSubmitting,
@@ -79,7 +78,7 @@ const NewChannel = ({ onClose }) => {
           <Button
             variant="primary"
             type="submit"
-            disabled={!dirty || isSubmitting}
+            disabled={isSubmitting}
           >
             {t('ui.button.send')}
           </Button>
