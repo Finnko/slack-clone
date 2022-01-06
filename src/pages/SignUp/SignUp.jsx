@@ -16,8 +16,8 @@ import { HttpCode } from '../../const.js';
 const schema = yup.object({
   username: yup.string()
     .required('error.required')
-    .min(3, 'error.invalidUsername')
-    .max(20, 'error.invalidUsername'),
+    .min(3, 'error.invalidUserName')
+    .max(20, 'error.invalidUserName'),
   password: yup.string()
     .required('error.required')
     .min(6, 'error.invalidUserPassword'),
