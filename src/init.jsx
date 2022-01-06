@@ -21,7 +21,8 @@ import '../assets/application.scss';
 
 export default async (socketInstance) => {
   const rollbarConfig = setupRollbar();
-  leoProfanity.loadDictionary('ru');
+  const russianDictionary = leoProfanity.getDictionary('ru');
+  leoProfanity.add(russianDictionary);
 
   await i18n
     .use(initReactI18next)
