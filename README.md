@@ -7,8 +7,7 @@
 
 ### About
 
-Simple slack copy built with React, socket.io and Redux Toolkit
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+Simple SPA Slack copy built with React, socket.io and Redux Toolkit
 
 #### Demo
 in progress
