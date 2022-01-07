@@ -10,7 +10,11 @@
 Simple SPA Slack copy built with React, socket.io and Redux Toolkit
 
 #### Demo
-in progress
+[live demo](https://slack-app-front.herokuapp.com/)
+
+Default user:
+- login admin
+- pass admin
 
 #### Built With
 

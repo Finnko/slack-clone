@@ -50,6 +50,7 @@ const Channels = ({ channel, activeChannelId }) => {
             <Dropdown.Toggle
               split
               variant={isActive ? 'secondary' : 'light'}
+              aria-label={t('ui.text.manageChannel')}
             />
             <Dropdown.Menu>
               <Dropdown.Item href="/#" onClick={handleRemove(channel.id)}>

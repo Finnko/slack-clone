@@ -4,7 +4,7 @@ export default {
     error: {
       required: 'Обязательное поле',
       invalidCredentials: 'Неверные имя пользователя или пароль',
-      unknown: 'Произошла неизвестная ошибка, перезагрузите страницу и попробуйте снова',
+      unknown: 'Ошибка соединения',
       channelMinLength: 'Минимальная длина имени канала - 3 символа',
       channelMaxLength: 'Максимальная длина имени канала - 20 символов',
       channelAlreadyExists: 'Канал с таким именем уже существует',
@@ -62,6 +62,7 @@ export default {
         noAccount: 'Нет аккаунта?',
         channels: 'Каналы',
         areYouSure: 'Уверены?',
+        manageChannel: 'Управление каналом',
       },
       aria: {
         newMessage: 'Новое сообщение',
