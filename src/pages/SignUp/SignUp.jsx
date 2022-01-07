@@ -2,7 +2,7 @@ import React from 'react';
 import * as yup from 'yup';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router';
-import { Button, FieldLabel, Form } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 import MainLayout from '../../layouts/MainLayout/MainLayout.jsx';

@@ -15,15 +15,15 @@ export default {
     },
     notifications: {
       createChannel: {
-        success: 'Канал успешно создан',
+        success: 'Канал создан',
         error: 'Не удалось добавить канал',
       },
       renameChannel: {
-        success: 'Канал успешно переименован',
+        success: 'Канал переименован',
         error: 'Не удалось добавить канал',
       },
       removeChannel: {
-        success: 'Канал успешно удален',
+        success: 'Канал удален',
         error: 'Не удалось добавить канал',
       },
       loadChannelsError: 'Не удалось получить информацию о каналах, попробуйте повторить запрос',
