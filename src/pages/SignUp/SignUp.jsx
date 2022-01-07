@@ -2,7 +2,7 @@ import React from 'react';
 import * as yup from 'yup';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router';
-import { Button, FloatingLabel, Form } from 'react-bootstrap';
+import { Button, FieldLabel, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 import MainLayout from '../../layouts/MainLayout/MainLayout.jsx';
@@ -79,60 +79,54 @@ const SignUp = () => {
                 <Form className="w-50" onSubmit={handleSubmit}>
                   <h1 className="text-center mb-4">{t('ui.form.registerTitle')}</h1>
 
-                  <FloatingLabel
-                    controlId="username"
-                    label={t('ui.form.fieldNewUser')}
-                    className="mb-3"
-                  >
+                  <Form.Group className="form-floating mb-3 form-group">
                     <Form.Control
                       type="text"
-                      name="username"
-                      autoComplete="off"
                       placeholder={t('ui.form.fieldNewUser')}
+                      name="username"
+                      id="username"
+                      autoComplete="off"
                       value={values.username}
                       onChange={handleChange}
                       isInvalid={errors.username && touched.username}
                     />
+                    <Form.Label htmlFor="username">{t('ui.form.fieldNewUser')}</Form.Label>
                     <Form.Control.Feedback type="invalid" tooltip>
                       {t(`${errors.username}`)}
                     </Form.Control.Feedback>
-                  </FloatingLabel>
+                  </Form.Group>
 
-                  <FloatingLabel
-                    controlId="password"
-                    label={t('ui.form.fieldPassword')}
-                    className="mb-3"
-                  >
+                  <Form.Group className="form-floating mb-3 form-group">
                     <Form.Control
                       type="password"
                       name="password"
+                      id="password"
                       placeholder={t('ui.form.fieldPassword')}
                       value={values.password}
                       onChange={handleChange}
                       isInvalid={errors.password && touched.password}
                     />
+                    <Form.Label htmlFor="password">{t('ui.form.fieldPassword')}</Form.Label>
                     <Form.Control.Feedback type="invalid" tooltip>
                       {t(`${errors.password}`)}
                     </Form.Control.Feedback>
-                  </FloatingLabel>
+                  </Form.Group>
 
-                  <FloatingLabel
-                    controlId="passwordConfirmation"
-                    label={t('ui.form.fieldPasswordConfirmation')}
-                    className="mb-4"
-                  >
+                  <Form.Group className="form-floating mb-4 form-group">
                     <Form.Control
                       type="password"
                       name="passwordConfirmation"
+                      id="passwordConfirmation"
                       placeholder={t('ui.form.fieldPasswordConfirmation')}
                       value={values.passwordConfirmation}
                       onChange={handleChange}
                       isInvalid={errors.passwordConfirmation && touched.passwordConfirmation}
                     />
+                    <Form.Label htmlFor="passwordConfirmation">{t('ui.form.fieldPasswordConfirmation')}</Form.Label>
                     <Form.Control.Feedback type="invalid" tooltip>
                       {t(`${errors.passwordConfirmation}`)}
                     </Form.Control.Feedback>
-                  </FloatingLabel>
+                  </Form.Group>
 
                   <Button
                     className="w-100"

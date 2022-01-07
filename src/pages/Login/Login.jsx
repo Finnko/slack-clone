@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import * as yup from 'yup';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router';
-import { Button, FloatingLabel, Form } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
@@ -79,44 +79,39 @@ const Login = () => {
                 <Form className="col-12 col-md-6 mt-3 mt-mb-0" onSubmit={handleSubmit}>
                   <h1 className="text-center mb-4">{t('ui.form.loginTitle')}</h1>
 
-                  <FloatingLabel
-                    controlId="username"
-                    label={t('ui.form.fieldUserName')}
-                    className="mb-3"
-                  >
+                  <Form.Group className="mb-3 form-group form-floating">
                     <Form.Control
                       type="text"
-                      name="username"
-                      autoComplete="off"
                       placeholder={t('ui.form.fieldUserName')}
+                      name="username"
+                      id="username"
+                      autoComplete="off"
+                      ref={inputRef}
                       value={values.username}
                       onChange={handleChange}
-                      ref={inputRef}
                       isInvalid={errors.username && touched.username}
                     />
+                    <Form.Label htmlFor="username">{t('ui.form.fieldUserName')}</Form.Label>
                     <Form.Control.Feedback type="invalid" tooltip>
                       {t(`${errors.username}`)}
                     </Form.Control.Feedback>
-                  </FloatingLabel>
+                  </Form.Group>
 
-                  <FloatingLabel
-                    controlId="password"
-                    label={t('ui.form.fieldPassword')}
-                    className="mb-4"
-                  >
+                  <Form.Group className="form-floating mb-4 form-group">
                     <Form.Control
                       type="password"
                       name="password"
-                      autoComplete="off"
+                      id="password"
                       placeholder={t('ui.form.fieldPassword')}
                       value={values.password}
                       onChange={handleChange}
                       isInvalid={errors.password && touched.password}
                     />
+                    <Form.Label htmlFor="password">{t('ui.form.fieldPassword')}</Form.Label>
                     <Form.Control.Feedback type="invalid" tooltip>
                       {t(`${errors.password}`)}
                     </Form.Control.Feedback>
-                  </FloatingLabel>
+                  </Form.Group>
 
                   <Button
                     className="w-100 mb-3"
