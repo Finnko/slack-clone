@@ -55,7 +55,7 @@ const SignUp = () => {
         if (e.response.status === HttpCode.AlreadyExists) {
           setFieldError('password', 'error.userExists');
         } else {
-          toast.error(t('notifications.registerError'));
+          toast.error(t('notifications.networkError'));
         }
       }
     },

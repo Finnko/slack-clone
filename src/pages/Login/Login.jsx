@@ -51,7 +51,7 @@ const Login = () => {
         if (e.response.status === HttpCode.Unauthorized) {
           setFieldError('password', 'error.invalidCredentials');
         } else {
-          toast.error(t('notifications.loginError'));
+          toast.error(t('notifications.networkError'));
         }
       }
     },
