@@ -53,10 +53,10 @@ const Channels = ({ channel, activeChannelId }) => {
               aria-label={t('ui.text.manageChannel')}
             />
             <Dropdown.Menu>
-              <Dropdown.Item href="/#" onClick={handleRemove(channel.id)}>
+              <Dropdown.Item as="button" onClick={handleRemove(channel.id)}>
                 {t('ui.button.remove')}
               </Dropdown.Item>
-              <Dropdown.Item href="/#" onClick={handleRename({ id: channel.id, name: channel.name })}>
+              <Dropdown.Item as="button" onClick={handleRename({ id: channel.id, name: channel.name })}>
                 {t('ui.button.rename')}
               </Dropdown.Item>
             </Dropdown.Menu>
