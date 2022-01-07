@@ -40,6 +40,7 @@ const RenameChannel = ({ onClose, channelData }) => {
 
   useEffect(() => {
     inputRef.current.focus();
+    inputRef.current.select();
   }, []);
 
   return (
