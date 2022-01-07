@@ -15,7 +15,7 @@ const Chat = () => {
 
   useEffect(() => {
     if (channelError) {
-      toast.error(t('notifications.loadChannelsError'));
+      toast.error(t('notifications.networkError'));
     }
   }, [channelError]);
 
