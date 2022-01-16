@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 import MainLayout from '../../layouts/MainLayout/MainLayout.jsx';
 import routes from '../../routes.js';
-import { login, register } from '../../api/api';
+import { register } from '../../api/api';
 import { useAuth } from '../../contexts/AuthContext.jsx';
 import { HttpCode } from '../../const.js';
 
