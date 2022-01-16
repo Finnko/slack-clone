@@ -5,6 +5,7 @@ import Login from './pages/Login/Login.jsx';
 import Main from './pages/Main/Main.jsx';
 import PrivateOutlet from './components/PrivateOutlet/PrivateOutlet.jsx';
 import SignUp from './pages/SignUp/SignUp.jsx';
+import NotFound from './pages/NotFound/NotFound.jsx';
 
 const App = () => (
   <Routes>
@@ -13,7 +14,7 @@ const App = () => (
     </Route>
     <Route path={routes.login()} element={<Login />} />
     <Route path={routes.signup()} element={<SignUp />} />
-    {/* <Route path="*" element={<NotFound />} /> */}
+    <Route path="*" element={<NotFound />} />
   </Routes>
 );
 
