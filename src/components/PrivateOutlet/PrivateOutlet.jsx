@@ -1,17 +1,18 @@
 import React from 'react';
-import { Navigate, useLocation } from 'react-router';
+import { Navigate, useLocation, Outlet } from 'react-router';
 import { useAuth } from '../../contexts/AuthContext.jsx';
 import routes from '../../routes';
 
-const PrivateRoute = ({ children }) => {
+const PrivateOutlet = () => {
   const { isAuth } = useAuth();
   const location = useLocation();
+  console.log({ isAuth });
 
   if (!isAuth) {
     return <Navigate to={routes.login()} state={{ from: location }} />;
   }
 
-  return children;
+  return <Outlet />;
 };
 
-export default PrivateRoute;
+export default PrivateOutlet;

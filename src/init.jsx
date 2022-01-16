@@ -8,7 +8,7 @@ import * as leoProfanity from 'leo-profanity';
 import { initReactI18next } from 'react-i18next';
 import { ToastContainer } from 'react-toastify';
 import resources from './locales/index.js';
-import App from './components/App/App.jsx';
+import App from './App.jsx';
 import { AuthProvider } from './contexts/AuthContext.jsx';
 import { SocketIoProvider } from './contexts/SocketContext.jsx';
 import store from './store';
