@@ -6,7 +6,6 @@ import routes from '../../routes';
 const PrivateOutlet = () => {
   const { isAuth } = useAuth();
   const location = useLocation();
-  console.log({ isAuth });
 
   if (!isAuth) {
     return <Navigate to={routes.login()} state={{ from: location }} />;

@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { toast } from 'react-toastify';
+import { useRollbar } from '@rollbar/react';
 import * as yup from 'yup';
 import * as leoProfanity from 'leo-profanity';
 import { useTranslation } from 'react-i18next';
@@ -16,6 +17,7 @@ const schema = yup.object({
 const MessageForm = ({ activeChannel }) => {
   const { t } = useTranslation();
   const inputRef = useRef(null);
+  const rollbar = useRollbar();
   const { sendMessage } = useSocket();
   const { user } = useAuth();
 
@@ -36,13 +38,14 @@ const MessageForm = ({ activeChannel }) => {
         await sendMessage({
           body: leoProfanity.clean(message),
           channelId: activeChannel.id,
-          user,
+          user: user.username,
         });
 
         resetForm();
         inputRef.current.focus();
       } catch (e) {
         console.log(e);
+        rollbar.error(t('rollbar.sendMessage'), e);
         toast.error(t('notifications.sendMessageError'));
       }
     },

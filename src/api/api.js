@@ -7,29 +7,12 @@ const REQUEST_TIMEOUT = 5000;
 const ApiRoute = {
   LOGIN: '/api/v1/login',
   REGISTER: '/api/v1/signup',
-  CHANNELS: '/api/v1/data',
+  DATA: '/api/v1/data',
 };
 
-const createApi = () => {
-  const api = axios.create({
-    timeout: REQUEST_TIMEOUT,
-  });
-
-  api.interceptors.request.use(
-    (config) => {
-      const token = localStorage.getItem('token') ?? '';
-
-      if (token) {
-        const formatted = token.replace(/"/g, '');
-        config.headers = ({ ...config.headers, Authorization: `Bearer ${formatted}` });
-      }
-
-      return config;
-    },
-  );
-
-  return api;
-};
+const createApi = () => axios.create({
+  timeout: REQUEST_TIMEOUT,
+});
 
 const api = createApi();
 
@@ -43,9 +26,9 @@ const register = async ({ username, password }) => {
   return data;
 };
 
-const loadChannels = async () => {
-  const { data } = await api.get(ApiRoute.CHANNELS);
+const loadData = async (headers) => {
+  const { data } = await api.get(ApiRoute.DATA, { headers });
   return data;
 };
 
-export { login, loadChannels, register };
+export { login, loadData, register };

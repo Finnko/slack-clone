@@ -7,12 +7,13 @@ import { useSocket } from '../../contexts/SocketContext.jsx';
 const NewChannel = ({ onClose, extra }) => {
   const { t } = useTranslation();
   const { removeChannel } = useSocket();
+  const { id } = extra;
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
 
     try {
-      await removeChannel({ id: extra });
+      await removeChannel({ id });
       onClose();
       toast.success(t('notifications.removeChannel.success'));
     } catch (e) {

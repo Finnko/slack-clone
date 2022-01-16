@@ -4,7 +4,7 @@ import { createSelector, createSlice } from '@reduxjs/toolkit';
 const initialState = {
   isOpened: false,
   type: null,
-  extra: null,
+  extra: {},
 };
 
 const modalSlice = createSlice({
@@ -19,7 +19,7 @@ const modalSlice = createSlice({
     hideModal(state) {
       state.isOpened = false;
       state.type = null;
-      state.extra = null;
+      state.extra = {};
     },
   },
 });

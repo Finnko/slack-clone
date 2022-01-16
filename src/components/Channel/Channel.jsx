@@ -23,11 +23,11 @@ const Channels = ({ channel, activeChannelId }) => {
   };
 
   const handleRemove = (id) => () => {
-    dispatch(showModal({ type: ModalType.REMOVE_CHANNEL, extra: id }));
+    dispatch(showModal({ type: ModalType.REMOVE_CHANNEL, extra: { id } }));
   };
 
   const handleRename = (channelData) => () => {
-    dispatch(showModal({ type: ModalType.RENAME_CHANNEL, extra: channelData }));
+    dispatch(showModal({ type: ModalType.RENAME_CHANNEL, extra: { channelData } }));
   };
 
   const isActive = activeChannelId === channel.id;

@@ -1,15 +1,47 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { showModal } from '../../store/modal/modalSlice.js';
-import { ModalType } from '../../const';
+import { toast } from 'react-toastify';
+import { useRollbar } from '@rollbar/react';
+import { Spinner } from 'react-bootstrap';
 import Channel from '../Channel/Channel.jsx';
+import { showModal } from '../../store/modal/modalSlice.js';
+import { FetchStatus, ModalType } from '../../const';
+import { useAuth } from '../../contexts/AuthContext.jsx';
+import {
+  fetchData,
+  selectChannels,
+  selectChannelsError, selectChannelsStatus,
+  selectCurrentChannelId,
+} from '../../store/channels/channelsSlice.js';
 
 import PlusSvg from '../../../assets/img/icons/plus.svg';
 
-const Channels = ({ channelsList, activeChannelId }) => {
+const Channels = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const rollbar = useRollbar();
+  const channels = useSelector(selectChannels);
+  const status = useSelector(selectChannelsStatus);
+  const activeChannelId = useSelector(selectCurrentChannelId);
+  const channelError = useSelector(selectChannelsError);
+  const { getAuthHeaders } = useAuth();
+
+  useEffect(() => {
+    if (channelError) {
+      toast.error(t('notifications.networkError'));
+      rollbar.error(t('rollbar.data'), channelError);
+    }
+  }, [channelError]);
+
+  useEffect(() => {
+    const headers = getAuthHeaders();
+    dispatch(fetchData(headers));
+  }, []);
+
+  if ([FetchStatus.PENDING, FetchStatus.IDLE].includes(status)) {
+    return <Spinner animation="grow" variant="primary" />;
+  }
 
   return (
     <div className="col-4 col-md-2 border-end pt-5 px-0 bg-light">
@@ -26,7 +58,7 @@ const Channels = ({ channelsList, activeChannelId }) => {
       </div>
 
       <ul className="nav flex-column nav-pills nav-fill px-2">
-        {channelsList.map((channel) => (
+        {channels.map((channel) => (
           <Channel key={channel.id} channel={channel} activeChannelId={activeChannelId} />
         ))}
       </ul>

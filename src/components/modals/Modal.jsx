@@ -20,7 +20,7 @@ const ChannelModal = () => {
       case ModalType.REMOVE_CHANNEL:
         return <RemoveChannel onClose={handleClose} extra={extra} />;
       case ModalType.RENAME_CHANNEL:
-        return <RenameChannel onClose={handleClose} channelData={extra} />;
+        return <RenameChannel onClose={handleClose} extra={extra} />;
       default:
         throw new Error(`Unknown modal type ${type}`);
     }

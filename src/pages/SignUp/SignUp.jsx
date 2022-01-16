@@ -2,16 +2,17 @@ import React from 'react';
 import * as yup from 'yup';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router';
+import { useRollbar } from '@rollbar/react';
 import { Button, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 import MainLayout from '../../layouts/MainLayout/MainLayout.jsx';
 import routes from '../../routes.js';
-
-import registerPic from '../../../assets/img/register.jpg';
-import { register } from '../../api/api';
+import { login, register } from '../../api/api';
 import { useAuth } from '../../contexts/AuthContext.jsx';
 import { HttpCode } from '../../const.js';
+
+import registerPic from '../../../assets/img/register.jpg';
 
 const schema = yup.object({
   username: yup.string()
@@ -27,8 +28,9 @@ const schema = yup.object({
 
 const SignUp = () => {
   const { t } = useTranslation();
-  const { setToken, setUser } = useAuth();
+  const { logIn } = useAuth();
   const navigate = useNavigate();
+  const rollbar = useRollbar();
 
   const {
     values,
@@ -48,13 +50,13 @@ const SignUp = () => {
     onSubmit: async ({ username, password }) => {
       try {
         const { token, username: user } = await register({ username, password });
-        setToken(token);
-        setUser(user);
+        logIn({ token, username: user });
         navigate(routes.root());
       } catch (e) {
         if (e.response.status === HttpCode.AlreadyExists) {
           setFieldError('password', 'error.userExists');
         } else {
+          rollbar.error(t('rollbar.register '), e, { username, password });
           toast.error(t('notifications.networkError'));
         }
       }

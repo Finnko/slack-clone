@@ -1,17 +1,17 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, createAsyncThunk, createSelector } from '@reduxjs/toolkit';
 import { FetchStatus } from '../../const.js';
-import { loadChannels } from '../../api/api.js';
+import { loadData } from '../../api/api.js';
 
 const initialState = {
   channels: [],
   status: FetchStatus.IDLE,
-  error: false,
+  error: null,
   currentChannelId: -1,
 };
 
-export const fetchChannels = createAsyncThunk('channels/fetchChannels', async () => {
-  const response = await loadChannels();
+export const fetchData = createAsyncThunk('channels/fetchData', async (headers) => {
+  const response = await loadData(headers);
   return response;
 });
 
@@ -38,18 +38,18 @@ const channelsSlice = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(fetchChannels.pending, (state) => {
+      .addCase(fetchData.pending, (state) => {
         state.status = FetchStatus.PENDING;
         state.error = false;
       })
-      .addCase(fetchChannels.fulfilled, (state, { payload }) => {
+      .addCase(fetchData.fulfilled, (state, { payload }) => {
         state.status = FetchStatus.SUCCEED;
         state.channels = payload.channels;
         state.currentChannelId = payload.currentChannelId;
       })
-      .addCase(fetchChannels.rejected, (state) => {
+      .addCase(fetchData.rejected, (state, action) => {
         state.status = FetchStatus.FAILED;
-        state.error = true;
+        state.error = action.error;
       });
   },
 });

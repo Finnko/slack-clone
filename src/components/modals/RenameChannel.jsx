@@ -8,11 +8,12 @@ import makeValidationsSchema from '../../helpers/makeValidationSchema.js';
 import { selectChannelNames } from '../../store/channels/channelsSlice.js';
 import { useSocket } from '../../contexts/SocketContext.jsx';
 
-const RenameChannel = ({ onClose, channelData }) => {
+const RenameChannel = ({ onClose, extra }) => {
   const { t } = useTranslation();
   const { renameChannel } = useSocket();
   const inputRef = useRef(null);
   const channelNames = useSelector(selectChannelNames);
+  const { channelData } = extra;
 
   const {
     values,

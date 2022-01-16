@@ -1,19 +1,32 @@
 import React, { createContext } from 'react';
-import useLocalStorage from '../hooks/useLocalStorage.jsx';
+import useLocalStorageState from '../hooks/useLocalStorage.jsx';
 
 const AuthContext = createContext({});
 AuthContext.displayName = 'AuthContext';
 
 const AuthProvider = ({ children }) => {
-  const [token, setToken] = useLocalStorage('token');
-  const [user, setUser] = useLocalStorage('user');
+  const [user, setUser] = useLocalStorageState('user');
+  const token = user?.token;
+
+  const logIn = (data) => setUser(data);
+
+  const logOut = () => setUser(null);
+
+  const getAuthHeaders = () => {
+    if (token) {
+      return { Authorization: `Bearer ${token}` };
+    }
+
+    return {};
+  };
 
   return (
     <AuthContext.Provider value={{
-      isAuth: !!token,
-      setToken,
+      isAuth: !!user?.token,
       user,
-      setUser,
+      logIn,
+      logOut,
+      getAuthHeaders,
     }}
     >
       {children}

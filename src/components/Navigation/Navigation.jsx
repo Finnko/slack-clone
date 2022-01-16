@@ -9,11 +9,10 @@ import { useAuth } from '../../contexts/AuthContext.jsx';
 const Navigation = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { isAuth, setToken, setUser } = useAuth();
+  const { isAuth, logOut } = useAuth();
 
   const handleClick = () => {
-    setToken('');
-    setUser('');
+    logOut();
     navigate(routes.login());
   };
 

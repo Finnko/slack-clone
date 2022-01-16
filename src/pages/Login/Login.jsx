@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import * as yup from 'yup';
+import { useRollbar } from '@rollbar/react';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router';
 import { Button, Form } from 'react-bootstrap';
@@ -23,8 +24,9 @@ const schema = yup.object({
 
 const Login = () => {
   const { t } = useTranslation();
-  const { setToken, setUser } = useAuth();
+  const { logIn } = useAuth();
   const navigate = useNavigate();
+  const rollbar = useRollbar();
   const inputRef = useRef(null);
 
   const {
@@ -44,13 +46,13 @@ const Login = () => {
     onSubmit: async ({ username, password }) => {
       try {
         const { token, username: user } = await login({ username, password });
-        setToken(token);
-        setUser(user);
+        logIn({ token, username: user });
         navigate(routes.root());
       } catch (e) {
         if (e.response.status === HttpCode.Unauthorized) {
           setFieldError('password', 'error.invalidCredentials');
         } else {
+          rollbar.error(t('rollbar.login '), e, { username, password });
           toast.error(t('notifications.networkError'));
         }
       }
